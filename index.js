@@ -9,11 +9,48 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+var admin = require("firebase-admin");
+
+// Fetch the service account key JSON file contents
+var serviceAccount = require("/Users/evgenii_kanivets/Developer/ServerProjects/cm2_contest_table/codemarathon-2-firebase-adminsdk-l7nzs-4143645ad6.json");
+
+// Initialize the app with a service account, granting admin privileges
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://codemarathon-2.firebaseio.com"
+});
+
 app.get('/', function(request, response) {
-  var div1Students = [{fullname: 'Коваленко Юрий', acmpId: '12345', dateTime: '02.11.2017 13:07:32', startRating: 1000, currentRating: 2000, bonuses: 0, contestRating: 1000},
-  {fullname: 'Коваленко Юрий', acmpId: '12345', dateTime: '02.11.2017 13:07:32', startRating: 1000, currentRating: 2000, bonuses: 0, contestRating: 1000}]
-  var div2Students = [{fullname: 'Коваленко Алексей', acmpId: '12345', dateTime: '02.11.2017 13:07:32', startRating: 1000, currentRating: 2000, bonuses: 0, contestRating: 1000}]
-  response.render('pages/index', {div1Students: div1Students, div2Students: div2Students});
+  var db = admin.database();
+  var ref = db.ref("users");
+  ref.once("value", function(snapshot) {
+  	var div1Students = [];
+  	var div2Students = [];
+  	for(var key in snapshot.val()) {
+      var value = snapshot.val()[key];
+      var student = {};
+      student.fullname = value.fullname;
+      student.acmpId = value.acmpId;
+      student.dateTime = value.dateTime;
+      student.startRating = value.startRating;
+      student.currentRating = value.currentRating;
+      student.bonusRating = value.bonusRating;
+      student.contestRating = value.contestRating;
+
+      if (value.division == 'Div1') {
+      	div1Students.push(student);
+      } else {
+      	div2Students.push(student);
+      }
+  	}
+  	div1Students.sort(function(a, b) {
+  		return b.contestRating - a.contestRating;
+  	});
+  	div2Students.sort(function(a, b) {
+  		return b.contestRating - a.contestRating;
+  	});
+    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students});
+  });
 });
 
 app.listen(app.get('port'), function() {
