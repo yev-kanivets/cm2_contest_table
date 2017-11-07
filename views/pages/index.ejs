@@ -39,16 +39,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Коваленко Юрий</td>
-          <td>12345</td>
-          <td>02.11.2017 13:07:32</td>
-          <td>1000</td>
-          <td>2000</td>
-          <td>1000</td>
-          <td>2000</td>
-        </tr>
+        <% div1Students.forEach(function(student, index) { %>
+                    <tr> 
+                        <th scope="row"><%= index+1 %></th>
+                        <td><%= student.fullname %></td> 
+                        <td><%= student.acmpId %></td> 
+                        <td><%= student.dateTime %></td>
+                        <td><%= student.startRating %></td>
+                        <td><%= student.currentRating %></td>
+                        <td><%= student.bonuses %></td>
+                        <td><%= student.contestRating %></td>
+                    </tr> 
+                <% }); %>
       </tbody>
     </table>
   </div> <!-- row -->
@@ -68,16 +70,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Коваленко Юрий</td>
-          <td>12345</td>
-          <td>02.11.2017 13:07:32</td>
-          <td>1000</td>
-          <td>2000</td>
-          <td>1000</td>
-          <td>2000</td>
-        </tr>
+        <% div2Students.forEach(function(student, index) { %>
+                    <tr> 
+                        <th scope="row"><%= index+1 %></th>
+                        <td><%= student.fullname %></td> 
+                        <td><%= student.acmpId %></td> 
+                        <td><%= student.dateTime %></td>
+                        <td><%= student.startRating %></td>
+                        <td><%= student.currentRating %></td>
+                        <td><%= student.bonuses %></td>
+                        <td><%= student.contestRating %></td>
+                    </tr> 
+                <% }); %>
       </tbody>
     </table>
   </div> <!-- row -->
