@@ -26,6 +26,7 @@ app.get('/', function(request, response) {
   ref.once("value", function(snapshot) {
   	var div1Students = [];
   	var div2Students = [];
+    var div3Students = [];
   	for(var key in snapshot.val()) {
       var value = snapshot.val()[key];
       var student = {};
@@ -39,8 +40,10 @@ app.get('/', function(request, response) {
 
       if (value.division == 'Div1') {
       	div1Students.push(student);
-      } else {
+      } else if (value.division == 'Div2') {
       	div2Students.push(student);
+      } else {
+        div3Students.push(student);
       }
   	}
   	div1Students.sort(function(a, b) {
@@ -49,7 +52,10 @@ app.get('/', function(request, response) {
   	div2Students.sort(function(a, b) {
   		return b.contestRating - a.contestRating;
   	});
-    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students});
+    div3Students.sort(function(a, b) {
+      return b.contestRating - a.contestRating;
+    });
+    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students});
   });
 });
 
