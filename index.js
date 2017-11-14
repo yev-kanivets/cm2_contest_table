@@ -9,6 +9,11 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+var favicon = require('serve-favicon');
+var path = require('path');
+
+app.use(favicon(path.join(__dirname, 'public', 'favicons', 'favicon.ico')));
+
 var admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
