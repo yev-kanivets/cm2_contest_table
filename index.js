@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 var favicon = require('serve-favicon');
 var path = require('path');
 
-app.use(favicon(path.join(__dirname, 'public', 'favicons', 'favicon.ico')));
+app.use(favicon(__dirname + '/public/favicons/favicon.ico'));
 
 var admin = require("firebase-admin");
 
