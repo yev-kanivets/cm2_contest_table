@@ -1,4 +1,4 @@
-# node-js-getting-started
+# cm2 Contest Table
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
 
@@ -9,24 +9,16 @@ This application supports the [Getting Started with Node on Heroku](https://devc
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
+$ git@github.com:evgenii-kanivets/cm2_contest_table.git
+$ cd cm2_contest_table
 $ npm install
 $ npm start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+## Credentials
+All you need is a Firebase credentials json file. Contact `Evgenii Kanivets` to get them.
 
 ## Documentation
 
