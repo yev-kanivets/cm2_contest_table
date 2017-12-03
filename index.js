@@ -17,7 +17,7 @@ app.use(favicon(__dirname + '/public/favicons/favicon.ico'));
 var admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
-var serviceAccount = require("/Users/evgenii_kanivets/Developer/ServerProjects/cm2_contest_table/codemarathon-2-firebase-adminsdk-l7nzs-4143645ad6.json");
+var serviceAccount = require("./codemarathon-2-firebase-adminsdk.json");
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -62,6 +62,10 @@ app.get('/', function(request, response) {
     });
     response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students});
   });
+});
+
+app.get('/sponsors', function(request, response) {
+  response.render('pages/sponsors');
 });
 
 app.listen(app.get('port'), function() {
