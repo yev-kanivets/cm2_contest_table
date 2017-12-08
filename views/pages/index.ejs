@@ -34,7 +34,7 @@
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
                         <td><%= student.fullname %></td> 
-                        <td><%= student.acmpId %></td> 
+                        <td><a href=<%="https://acmp.ru/?main=user&id=" + student.acmpId %>><%= student.acmpId %></a></td> 
                         <td><%= student.dateTime %></td>
                         <td><%= student.startRating %></td>
                         <td><%= student.currentRating %></td>
@@ -65,7 +65,7 @@
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>>  
                         <th scope="row"><%= index+1 %></th>
                         <td><%= student.fullname %></td> 
-                        <td><%= student.acmpId %></td> 
+                        <td><a href=<%="https://acmp.ru/?main=user&id=" + student.acmpId %>><%= student.acmpId %></a></td> 
                         <td><%= student.dateTime %></td>
                         <td><%= student.startRating %></td>
                         <td><%= student.currentRating %></td>
@@ -96,7 +96,7 @@
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
                         <td><%= student.fullname %></td> 
-                        <td><%= student.acmpId %></td> 
+                        <td><a href=<%="https://acmp.ru/?main=user&id=" + student.acmpId %>><%= student.acmpId %></a></td> 
                         <td><%= student.dateTime %></td>
                         <td><%= student.startRating %></td>
                         <td><%= student.currentRating %></td>
