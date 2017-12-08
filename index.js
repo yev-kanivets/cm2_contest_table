@@ -17,12 +17,12 @@ app.use(favicon(__dirname + '/public/favicons/favicon.ico'));
 var admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
-var serviceAccount = require("./codemarathon-2-firebase-adminsdk.json");
+var serviceAccount = require("./codemarathon-2-dev-firebase-adminsdk.json");
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://codemarathon-2.firebaseio.com"
+  databaseURL: "https://codemarathon-2-dev.firebaseio.com"
 });
 
 app.get('/', function(request, response) {

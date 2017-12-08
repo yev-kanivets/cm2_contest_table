@@ -13,3 +13,4 @@ docker-compose.yml
 
 # Keys
 codemarathon-2-firebase-adminsdk.json
+codemarathon-2-dev-firebase-adminsdk.json
