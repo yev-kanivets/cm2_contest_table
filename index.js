@@ -55,10 +55,9 @@ app.get('/', function(request, response) {
     var compare = function(a, b) {
       return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
     }
-
     div1Students.sort(compare);
-  	div2Students.sort(compare);
-  	div3Students.sort(compare);
+    div2Students.sort(compare);
+    div3Students.sort(compare);
     response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students});
   });
 });
