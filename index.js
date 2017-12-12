@@ -50,16 +50,14 @@ app.get('/', function(request, response) {
       } else {
         div3Students.push(student);
       }
-  	}
-  	div1Students.sort(function(a, b) {
-  		return b.contestRating - a.contestRating;
-  	});
-  	div2Students.sort(function(a, b) {
-  		return b.contestRating - a.contestRating;
-  	});
-    div3Students.sort(function(a, b) {
-      return b.contestRating - a.contestRating;
-    });
+    }
+
+    var compare = function(a, b) {
+      return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
+    }
+    div1Students.sort(compare);
+    div2Students.sort(compare);
+    div3Students.sort(compare);
     response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students});
   });
 });
