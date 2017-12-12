@@ -33,7 +33,7 @@
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
                         <td><%= student.fullname %></td> 
-                        <td><a href=<%="https://acmp.ru/?main=user&id=" + student.acmpId %>><%= student.acmpId %></a></td> 
+                        <td><a href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
                         <td><%= student.startRating %></td>
                         <td><%= student.currentRating %></td>
                         <td><%= student.bonusRating %></td>
@@ -62,7 +62,7 @@
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>>  
                         <th scope="row"><%= index+1 %></th>
                         <td><%= student.fullname %></td> 
-                        <td><a href=<%="https://acmp.ru/?main=user&id=" + student.acmpId %>><%= student.acmpId %></a></td> 
+                        <td><a href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
                         <td><%= student.startRating %></td>
                         <td><%= student.currentRating %></td>
                         <td><%= student.bonusRating %></td>
@@ -91,7 +91,7 @@
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
                         <td><%= student.fullname %></td> 
-                        <td><a href=<%="https://acmp.ru/?main=user&id=" + student.acmpId %>><%= student.acmpId %></a></td> 
+                        <td><a href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
                         <td><%= student.startRating %></td>
                         <td><%= student.currentRating %></td>
                         <td><%= student.bonusRating %></td>
@@ -102,7 +102,7 @@
     </table>
   </div> <!-- row -->
    <div class="alert alert-info text-center" role="alert">
-    Да прибудет с Вами сила...
+    <p>Последнее обновление: <%= lastUpdate %></p>
   </div>
 </div>
 

@@ -26,14 +26,19 @@ admin.initializeApp({
 });
 
 app.get('/', function(request, response) {
-  var db = admin.database();
-  var ref = db.ref("users");
-  ref.once("value", function(snapshot) {
+  const db = admin.database();
+  const usersPromise = db.ref("users").once("value");
+  const lastUpdatePromise = db.ref("lastUpdate").once("value");
+
+  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
+    const students = results[0].val();
+    const lastUpdate = results[1].val();
+
   	var div1Students = [];
   	var div2Students = [];
     var div3Students = [];
-  	for(var key in snapshot.val()) {
-      var value = snapshot.val()[key];
+  	for(var key in students) {
+      var value = students[key];
       var student = {};
       student.fullname = value.fullname;
       student.acmpId = value.acmpId;
@@ -58,7 +63,8 @@ app.get('/', function(request, response) {
     div1Students.sort(compare);
     div2Students.sort(compare);
     div3Students.sort(compare);
-    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students});
+    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students, 
+      lastUpdate: lastUpdate});
   });
 });
 
