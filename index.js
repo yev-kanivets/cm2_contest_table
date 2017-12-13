@@ -17,23 +17,28 @@ app.use(favicon(__dirname + '/public/favicons/favicon.ico'));
 var admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
-var serviceAccount = require("./codemarathon-2-firebase-adminsdk.json");
+var serviceAccount = require("./codemarathon-2-dev-firebase-adminsdk.json");
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://codemarathon-2.firebaseio.com"
+  databaseURL: "https://codemarathon-2-dev.firebaseio.com"
 });
 
 app.get('/', function(request, response) {
-  var db = admin.database();
-  var ref = db.ref("users");
-  ref.once("value", function(snapshot) {
+  const db = admin.database();
+  const usersPromise = db.ref("users").once("value");
+  const lastUpdatePromise = db.ref("lastUpdate").once("value");
+
+  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
+    const students = results[0].val();
+    const lastUpdate = results[1].val();
+
   	var div1Students = [];
   	var div2Students = [];
     var div3Students = [];
-  	for(var key in snapshot.val()) {
-      var value = snapshot.val()[key];
+  	for(var key in students) {
+      var value = students[key];
       var student = {};
       student.fullname = value.fullname;
       student.acmpId = value.acmpId;
@@ -50,17 +55,16 @@ app.get('/', function(request, response) {
       } else {
         div3Students.push(student);
       }
-  	}
-  	div1Students.sort(function(a, b) {
-  		return b.contestRating - a.contestRating;
-  	});
-  	div2Students.sort(function(a, b) {
-  		return b.contestRating - a.contestRating;
-  	});
-    div3Students.sort(function(a, b) {
-      return b.contestRating - a.contestRating;
-    });
-    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students});
+    }
+
+    var compare = function(a, b) {
+      return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
+    }
+    div1Students.sort(compare);
+    div2Students.sort(compare);
+    div3Students.sort(compare);
+    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students, 
+      lastUpdate: lastUpdate});
   });
 });
 
