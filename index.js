@@ -25,8 +25,9 @@ admin.initializeApp({
   databaseURL: "https://codemarathon-2-dev.firebaseio.com"
 });
 
+const db = admin.database();
+
 app.get('/', function(request, response) {
-  const db = admin.database();
   const usersPromise = db.ref("users").once("value");
   const lastUpdatePromise = db.ref("lastUpdate").once("value");
 
@@ -75,6 +76,104 @@ app.get('/sponsors', function(request, response) {
 app.get('/prizes', function(request, response) {
   response.render('pages/prizes');
 });
+
+app.get('/participants', function(request, response) {
+  const usersPromise = db.ref("users").once("value");
+  const lastUpdatePromise = db.ref("lastUpdate").once("value");
+
+  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
+    const participants = results[0].val();
+    const lastUpdate = results[1].val();
+
+  	var students = [];
+  	for(var key in participants) {
+      var value = participants[key];
+      var student = {};
+      student.fullname = value.fullname;
+      student.acmpId = value.acmpId;
+      student.dateTime = value.dateTime;
+      student.startRating = value.startRating;
+      student.currentRating = value.currentRating;
+      student.bonusRating = value.bonusRating;
+      student.contestRating = value.contestRating;
+      student.division = value.division;
+      students.push(student);
+    }
+
+    var compareForScore = function(a, b) {
+      return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
+    }
+
+    var compareForName = function(a, b) {
+      if(b.fullname > a.fullname){
+        return false;
+      }
+      return true;
+    }
+    students.sort(compareForScore);
+    response.render('pages/participants', {students: students});
+  });
+});
+
+app.get('/participants/:id', function(request, response){
+  var studentId = request.params.id;
+
+  const usersPromise = db.ref("users").once("value");
+  const lastUpdatePromise = db.ref("lastUpdate").once("value");
+
+  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
+    const participants = results[0].val();
+    const lastUpdate = results[1].val();
+
+    var solvedTasks = [];
+    var notSolvedTasks = [];
+    var participant = [];
+  	for(var key in participants) {
+
+      var value = participants[key];
+      var student = {};
+
+      if(value.acmpId == studentId){
+        for(var k in value.solvedTasks){
+          var l = value.solvedTasks[k];
+          var task = {};
+     
+          task.value = l.value;
+          solvedTasks.push(task);
+        }
+        for(var k in value.notSolvedTasks){
+          var l = value.notSolvedTasks[k];
+          var task = {};
+     
+          task.value = l.value;
+          notSolvedTasks.push(task);
+        }
+
+        student.fullname = value.fullname;
+        student.acmpId = value.acmpId;
+        student.dateTime = value.dateTime;
+        student.startRating = value.startRating;
+        student.currentRating = value.currentRating;
+        student.bonusRating = value.bonusRating;
+        student.division = value.division;
+        student.contestRating = value.contestRating;
+        participant.push(student);
+      }
+    }
+
+    var compareForScore = function(a, b) {
+      return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
+    }
+
+    var compareForName = function(a, b) {
+      if(b.fullname > a.fullname){
+        return false;
+      }
+      return true;
+    }
+    response.render('pages/student', {solvedTasks: solvedTasks, notSolvedTasks: notSolvedTasks, participant: participant});
+    });
+  });
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

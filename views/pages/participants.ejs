@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <div class="container">
+    <div class="row">
+            <table class="table">
+            <caption><h3>Участники Code Marathon 2.0</h3></caption>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ФИО</th>
+                <th>Div</th>
+                <th>ACMP ID</th>
+                <th>Стартовый рейтинг</th>
+                <th>Текущий рейтинг</th>
+                <th>Бонусы</th>
+                <th>Итоговый рейтинг</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% students.forEach(function(student, index) { %>
+                        <tr<% if(index < 10){ %> class="bg-success" <% } %>> 
+                            <th scope="row"><%= index+1 %></th>
+                            <td><a href="/participants/<%= student.acmpId %>"><%= student.fullname %></a></td> 
+                            <td><%= student.division %></td>
+                            <td><a href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
+                            <td><%= student.startRating %></td>
+                            <td><a href="https://acmp.ru/index.asp?main=status&id_mem=<%= student.acmpId %>"><%= student.currentRating %></a></td> 
+                            <td><%= student.bonusRating %></td>
+                            <td><%= student.contestRating %></td>
+                        </tr> 
+                    <% }); %>
+            </tbody>
+        </table>
+        </div> <!-- row -->
+    </div>
+</body>
+</html>
