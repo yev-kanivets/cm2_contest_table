@@ -77,43 +77,7 @@ app.get('/prizes', function(request, response) {
   response.render('pages/prizes');
 });
 
-app.get('/participants', function(request, response) {
-  const usersPromise = db.ref("users").once("value");
-  const lastUpdatePromise = db.ref("lastUpdate").once("value");
 
-  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
-    const participants = results[0].val();
-    const lastUpdate = results[1].val();
-
-  	var students = [];
-  	for(var key in participants) {
-      var value = participants[key];
-      var student = {};
-      student.fullname = value.fullname;
-      student.acmpId = value.acmpId;
-      student.dateTime = value.dateTime;
-      student.startRating = value.startRating;
-      student.currentRating = value.currentRating;
-      student.bonusRating = value.bonusRating;
-      student.contestRating = value.contestRating;
-      student.division = value.division;
-      students.push(student);
-    }
-
-    var compareForScore = function(a, b) {
-      return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
-    }
-
-    var compareForName = function(a, b) {
-      if(b.fullname > a.fullname){
-        return false;
-      }
-      return true;
-    }
-    students.sort(compareForScore);
-    response.render('pages/participants', {students: students});
-  });
-});
 
 app.get('/participants/:id', function(request, response){
   var studentId = request.params.id;
@@ -127,6 +91,7 @@ app.get('/participants/:id', function(request, response){
 
     var solvedTasks = [];
     var notSolvedTasks = [];
+    var bonuses = [];
     var participant = [];
   	for(var key in participants) {
 
@@ -141,12 +106,13 @@ app.get('/participants/:id', function(request, response){
           task.value = l.value;
           solvedTasks.push(task);
         }
-        for(var k in value.notSolvedTasks){
-          var l = value.notSolvedTasks[k];
-          var task = {};
+        for(var k in value.bonuses){
+          var l = value.bonuses[k];
+          var bonus = {};
      
-          task.value = l.value;
-          notSolvedTasks.push(task);
+          bonus.value = l.value;
+          bonus.description = l.description;
+          bonuses.push(bonus);
         }
 
         student.fullname = value.fullname;
@@ -156,24 +122,17 @@ app.get('/participants/:id', function(request, response){
         student.currentRating = value.currentRating;
         student.bonusRating = value.bonusRating;
         student.division = value.division;
+        student.email = value.email;
+        student.tgname = value.telegramUsername;
         student.contestRating = value.contestRating;
         participant.push(student);
       }
+      
     }
 
-    var compareForScore = function(a, b) {
-      return (b.contestRating === undefined ? 0 : b.contestRating) - (a.contestRating === undefined ? 0 : a.contestRating);
-    }
-
-    var compareForName = function(a, b) {
-      if(b.fullname > a.fullname){
-        return false;
-      }
-      return true;
-    }
-    response.render('pages/student', {solvedTasks: solvedTasks, notSolvedTasks: notSolvedTasks, participant: participant});
+    response.render('pages/student', {solvedTasks: solvedTasks, notSolvedTasks: notSolvedTasks, participant: participant, bonuses: bonuses});
     });
-  });
+ });
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
