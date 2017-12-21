@@ -106,6 +106,13 @@ app.get('/participants/:id', function(request, response){
           task.value = l.value;
           solvedTasks.push(task);
         }
+        for(var k in value.notSolvedTasks){
+          var l = value.notSolvedTasks[k];
+          var task = {};
+     
+          task.value = l.value;
+          notSolvedTasks.push(task);
+        }
         for(var k in value.bonuses){
           var l = value.bonuses[k];
           var bonus = {};
