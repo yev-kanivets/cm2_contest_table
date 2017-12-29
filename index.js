@@ -85,19 +85,15 @@ app.listen(app.get('port'), function() {
 function parseStudent(key, value) {
   var solvedTasks = [];
   for (var k in value.solvedTasks) {
-    var l = value.solvedTasks[k];
     var task = {};
-     
-    task.value = l.value;
+    task.value = value.solvedTasks[k];
     solvedTasks.push(task);
   }
 
   var notSolvedTasks = [];
   for (var k in value.notSolvedTasks) {
-    var l = value.notSolvedTasks[k];
     var task = {};
-     
-    task.value = l.value;
+    task.value = value.notSolvedTasks[k];
     notSolvedTasks.push(task);
   }
        
