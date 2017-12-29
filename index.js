@@ -39,16 +39,8 @@ app.get('/', function(request, response) {
   	var div2Students = [];
     var div3Students = [];
   	for(var key in students) {
-      var value = students[key];
-      var student = {};
-      student.id = key;
-      student.fullname = value.fullname;
-      student.acmpId = value.acmpId;
-      student.dateTime = value.dateTime;
-      student.startRating = value.startRating;
-      student.currentRating = value.currentRating;
-      student.bonusRating = value.bonusRating;
-      student.contestRating = value.contestRating;
+      let value = students[key];
+      let student = parseStudent(value);
 
       if (value.division == 'Div1') {
       	div1Students.push(student);
@@ -90,58 +82,61 @@ app.get('/participants/:id', function(request, response){
     const participants = results[0].val();
     const lastUpdate = results[1].val();
 
-    var solvedTasks = [];
-    var notSolvedTasks = [];
-    var bonuses = [];
-    var student = {};
   	for(var key in participants) {
-
-      var value = participants[key];
-
-      if(value.acmpId == studentId){
-        for(var k in value.solvedTasks){
-          var l = value.solvedTasks[k];
-          var task = {};
-     
-          task.value = l.value;
-          solvedTasks.push(task);
-        }
-        for(var k in value.notSolvedTasks){
-          var l = value.notSolvedTasks[k];
-          var task = {};
-     
-          task.value = l.value;
-          notSolvedTasks.push(task);
-        }
-        for(var k in value.bonuses){
-          var l = value.bonuses[k];
-          var bonus = {};
-     
-          bonus.value = l.value;
-          bonus.description = l.description;
-          bonuses.push(bonus);
-        }
-
-        student.fullname = value.fullname;
-        student.acmpId = value.acmpId;
-        student.dateTime = value.dateTime;
-        student.startRating = value.startRating;
-        student.currentRating = value.currentRating;
-        student.bonusRating = value.bonusRating;
-        student.division = value.division;
-        student.contestRating = value.contestRating;
+      let value = participants[key];
+      if (value.acmpId == studentId) {
+        response.render('pages/student', {student: parseStudent(value)});
+        break;
       }
-      
     }
-
-    student.solvedTasks = solvedTasks;
-    student.notSolvedTasks = notSolvedTasks;
-    student.bonuses = bonuses;
-
-    response.render('pages/student', {student: student});
-    });
- });
+  });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+function parseStudent(value) {
+  var solvedTasks = [];
+  for (var k in value.solvedTasks) {
+    var l = value.solvedTasks[k];
+    var task = {};
+     
+    task.value = l.value;
+    solvedTasks.push(task);
+  }
+
+  var notSolvedTasks = [];
+  for (var k in value.notSolvedTasks) {
+    var l = value.notSolvedTasks[k];
+    var task = {};
+     
+    task.value = l.value;
+    notSolvedTasks.push(task);
+  }
+       
+  var bonuses = []; 
+  for (var k in value.bonuses) {
+    var l = value.bonuses[k];
+    var bonus = {};
+     
+    bonus.value = l.value;
+    bonus.description = l.description;
+    bonuses.push(bonus);
+  }
+
+  var student = {};
+  student.fullname = value.fullname;
+  student.acmpId = value.acmpId;
+  student.dateTime = value.dateTime;
+  student.startRating = value.startRating;
+  student.currentRating = value.currentRating;
+  student.bonusRating = value.bonusRating;
+  student.division = value.division;
+  student.contestRating = value.contestRating;
+  student.solvedTasks = solvedTasks;
+  student.notSolvedTasks = notSolvedTasks;
+  student.bonuses = bonuses;
+
+  return student;
+}
