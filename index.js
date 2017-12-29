@@ -40,7 +40,7 @@ app.get('/', function(request, response) {
     var div3Students = [];
   	for(var key in students) {
       let value = students[key];
-      let student = parseStudent(value);
+      let student = parseStudent(key, value);
 
       if (value.division == 'Div1') {
       	div1Students.push(student);
@@ -84,8 +84,8 @@ app.get('/participants/:id', function(request, response){
 
   	for(var key in participants) {
       let value = participants[key];
-      if (value.acmpId == studentId) {
-        response.render('pages/student', {student: parseStudent(value)});
+      if (key == studentId) {
+        response.render('pages/student', {student: parseStudent(key, value)});
         break;
       }
     }
@@ -96,7 +96,7 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-function parseStudent(value) {
+function parseStudent(key, value) {
   var solvedTasks = [];
   for (var k in value.solvedTasks) {
     var l = value.solvedTasks[k];
@@ -126,6 +126,7 @@ function parseStudent(value) {
   }
 
   var student = {};
+  student.id = key;
   student.fullname = value.fullname;
   student.acmpId = value.acmpId;
   student.dateTime = value.dateTime;
