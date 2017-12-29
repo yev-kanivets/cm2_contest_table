@@ -41,6 +41,7 @@ app.get('/', function(request, response) {
   	for(var key in students) {
       var value = students[key];
       var student = {};
+      student.id = key;
       student.fullname = value.fullname;
       student.acmpId = value.acmpId;
       student.dateTime = value.dateTime;
@@ -92,11 +93,10 @@ app.get('/participants/:id', function(request, response){
     var solvedTasks = [];
     var notSolvedTasks = [];
     var bonuses = [];
-    var participant = [];
+    var student = {};
   	for(var key in participants) {
 
       var value = participants[key];
-      var student = {};
 
       if(value.acmpId == studentId){
         for(var k in value.solvedTasks){
@@ -129,15 +129,16 @@ app.get('/participants/:id', function(request, response){
         student.currentRating = value.currentRating;
         student.bonusRating = value.bonusRating;
         student.division = value.division;
-        student.email = value.email;
-        student.tgname = value.telegramUsername;
         student.contestRating = value.contestRating;
-        participant.push(student);
       }
       
     }
 
-    response.render('pages/student', {solvedTasks: solvedTasks, notSolvedTasks: notSolvedTasks, participant: participant, bonuses: bonuses});
+    student.solvedTasks = solvedTasks;
+    student.notSolvedTasks = notSolvedTasks;
+    student.bonuses = bonuses;
+
+    response.render('pages/student', {student: student});
     });
  });
 
