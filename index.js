@@ -25,8 +25,9 @@ admin.initializeApp({
   databaseURL: "https://codemarathon-2-dev.firebaseio.com"
 });
 
+const db = admin.database();
+
 app.get('/', function(request, response) {
-  const db = admin.database();
   const usersPromise = db.ref("users").once("value");
   const lastUpdatePromise = db.ref("lastUpdate").once("value");
 
@@ -38,15 +39,8 @@ app.get('/', function(request, response) {
   	var div2Students = [];
     var div3Students = [];
   	for(var key in students) {
-      var value = students[key];
-      var student = {};
-      student.fullname = value.fullname;
-      student.acmpId = value.acmpId;
-      student.dateTime = value.dateTime;
-      student.startRating = value.startRating;
-      student.currentRating = value.currentRating;
-      student.bonusRating = value.bonusRating;
-      student.contestRating = value.contestRating;
+      let value = students[key];
+      let student = parseStudent(key, value);
 
       if (value.division == 'Div1') {
       	div1Students.push(student);
@@ -76,6 +70,56 @@ app.get('/prizes', function(request, response) {
   response.render('pages/prizes');
 });
 
+app.get('/participants/:id', function(request, response){
+  var studentId = request.params.id;
+
+  db.ref("users").child(studentId).once("value", function(dataSnapshot) {
+    response.render('pages/student', {student: parseStudent(studentId, dataSnapshot.val())});
+  });
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+function parseStudent(key, value) {
+  var solvedTasks = [];
+  for (var k in value.solvedTasks) {
+    var task = {};
+    task.value = value.solvedTasks[k];
+    solvedTasks.push(task);
+  }
+
+  var notSolvedTasks = [];
+  for (var k in value.notSolvedTasks) {
+    var task = {};
+    task.value = value.notSolvedTasks[k];
+    notSolvedTasks.push(task);
+  }
+       
+  var bonuses = []; 
+  for (var k in value.bonuses) {
+    var l = value.bonuses[k];
+    var bonus = {};
+     
+    bonus.value = l.value;
+    bonus.description = l.description;
+    bonuses.push(bonus);
+  }
+
+  var student = {};
+  student.id = key;
+  student.fullname = value.fullname;
+  student.acmpId = value.acmpId;
+  student.dateTime = value.dateTime;
+  student.startRating = value.startRating;
+  student.currentRating = value.currentRating;
+  student.bonusRating = value.bonusRating;
+  student.division = value.division;
+  student.contestRating = value.contestRating;
+  student.solvedTasks = solvedTasks;
+  student.notSolvedTasks = notSolvedTasks;
+  student.bonuses = bonuses;
+
+  return student;
+}

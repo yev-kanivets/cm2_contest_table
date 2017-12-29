@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <div class="container">
+    <div class="row">
+      <div class="alert alert-info text-center" role="alert">
+        <h1><%= student.fullname %><small> (<%= student.division %>)</small></h1>
+      </div>
+    </div>
+    <div class="row">
+            <div class="col-md-4">
+              <h3>Рейтинг</h3>
+              <h5>Стартовый рейтинг на ACMP: <%= student.startRating %></h5>
+              <h5>Текущий рейтинг на ACMP: <%= student.currentRating %></h5>
+              <h5>Бонусный рейтинг: <%= student.bonusRating %></h5>
+              <h5>Итоговый рейтинг: <%= student.contestRating %></h5>
+              <table class="table">
+                <h3>Бонусы</h3>
+                  <thead>
+                    <tr>
+                      <th>Описание</th>
+                      <th>Рейтинг</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% student.bonuses.forEach(function(bonus, index) { %>
+                                <tr>
+                                    <td><%= bonus.description %></td>
+                                    <td><%= bonus.value %></td>
+                                </tr> 
+                            <% }); %>
+                  </tbody>
+                </table> %>
+            </div>
+            <div class="col-md-8">
+              <h3>Решенные задачи</h3>
+              <% student.solvedTasks.forEach(function(task, index) { %>
+                <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.value %>"><%= task.value %></a>
+              <% }); %>
+              <h3>Нерешенные задачи</h3>
+              <% student.notSolvedTasks.forEach(function(task, index) { %>
+                <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.value %>"><%= task.value %></a>
+              <% }); %>
+            </div>
+    </div>
+    <div class="row">
+      <div class="alert alert-primary" role="alert">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
