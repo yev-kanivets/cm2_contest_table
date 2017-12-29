@@ -70,25 +70,11 @@ app.get('/prizes', function(request, response) {
   response.render('pages/prizes');
 });
 
-
-
 app.get('/participants/:id', function(request, response){
   var studentId = request.params.id;
 
-  const usersPromise = db.ref("users").once("value");
-  const lastUpdatePromise = db.ref("lastUpdate").once("value");
-
-  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
-    const participants = results[0].val();
-    const lastUpdate = results[1].val();
-
-  	for(var key in participants) {
-      let value = participants[key];
-      if (key == studentId) {
-        response.render('pages/student', {student: parseStudent(key, value)});
-        break;
-      }
-    }
+  db.ref("users").child(studentId).once("value", function(dataSnapshot) {
+    response.render('pages/student', {student: parseStudent(studentId, dataSnapshot.val())});
   });
 });
 
