@@ -1,29 +1,134 @@
 .jumbotron {
   background: #2196f3;
   color: white;
-  padding-bottom: 80px; }
-  .jumbotron .btn-primary {
-    background: #845ac7;
-    border-color: #845ac7; }
-    .jumbotron .btn-primary:hover {
-      background: #7646c1; }
-  .jumbotron p {
-    color: #d9ccee;
-    max-width: 75%;
-    margin: 1em auto 2em; }
-  .navbar + .jumbotron {
-    margin-top: -20px; }
-  .row {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .jumbotron .lang-logo {
-    display: block;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white; }
-    .jumbotron .lang-logo img {
-      max-width: 100%; }
+  padding-bottom: 80px; 
+}
+
+.jumbotron .btn-primary {
+  background: #845ac7;
+  border-color: #845ac7; 
+}
+
+.jumbotron .btn-primary:hover {
+  background: #7646c1; 
+}
+
+.jumbotron p {
+  color: #d9ccee;
+  max-width: 75%;
+  margin: 1em auto 2em; 
+}
+
+.navbar + .jumbotron {
+  margin-top: -20px; 
+}
+
+.row {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+  
+.jumbotron .lang-logo {
+  display: block;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border: 2px solid white; 
+}
+    
+.jumbotron .lang-logo img {
+  max-width: 100%; 
+}
+
+.stat-1 {
+  width: 16px;
+  height: 16px;
+  background: #BBDEFB;
+  float: left;
+  margin: 2px;
+  opacity: 1.0;
+}
+
+.stat-2 {
+  width: 16px;
+  height: 16px;
+  background: #90CAF9;
+  float: left;
+  margin: 2px;
+  opacity: 1.0;
+}
+
+.stat-3 {
+  width: 16px;
+  height: 16px;
+  background: #64B5F6;
+  float: left;
+  margin: 2px;
+  opacity: 1.0;
+}
+
+.stat-4 {
+  width: 16px;
+  height: 16px;
+  background: #42A5F5;
+  float: left;
+  margin: 2px;
+  opacity: 1.0;
+}
+
+.stat-5 {
+  width: 16px;
+  height: 16px;
+  background: #2196f3;
+  float: left;
+  margin: 2px;
+  opacity: 1.0;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
