@@ -30,10 +30,12 @@ const db = admin.database();
 app.get('/', function(request, response) {
   const usersPromise = db.ref("users").once("value");
   const lastUpdatePromise = db.ref("lastUpdate").once("value");
+  const statisticsPromise = db.ref("statistics").once("value");
 
-  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
+  Promise.all([usersPromise, lastUpdatePromise, statisticsPromise]).then(results => {
     const students = results[0].val();
     const lastUpdate = results[1].val();
+    const statistics = results[2].val();
 
   	var div1Students = [];
   	var div2Students = [];
@@ -48,6 +50,29 @@ app.get('/', function(request, response) {
       	div2Students.push(student);
       } else {
         div3Students.push(student);
+      }
+
+      let studentStatistics = statistics.studentStatistics[key];
+      if (studentStatistics !== undefined) {
+        student.diff1_20 = {};
+        student.diff1_20.stat = getStat(studentStatistics.diff1_20 / 71.0);
+        student.diff1_20.tooltip = studentStatistics.diff1_20 + "/" + 71;
+
+        student.diff21_40 = {};
+        student.diff21_40.stat = getStat(studentStatistics.diff21_40 / 284.0);
+        student.diff21_40.tooltip = studentStatistics.diff21_40 + "/" + 284;
+
+        student.diff41_60 = {};
+        student.diff41_60.stat = getStat(studentStatistics.diff41_60 / 252.0);
+        student.diff41_60.tooltip = studentStatistics.diff41_60 + "/" + 252;
+
+        student.diff61_80 = {};
+        student.diff61_80.stat = getStat(studentStatistics.diff61_80 / 85.0);
+        student.diff61_80.tooltip = studentStatistics.diff61_80 + "/" + 85;
+
+        student.diff81_100 = {};
+        student.diff81_100.stat = getStat(studentStatistics.diff81_100 / 8.0);
+        student.diff81_100.tooltip = studentStatistics.diff81_100 + "/" + 8;
       }
     }
 
@@ -122,4 +147,12 @@ function parseStudent(key, value) {
   student.bonuses = bonuses;
 
   return student;
+}
+
+function getStat(value) {
+  if (value <= 0.2) return "stat-1";
+  else if (value <= 0.4) return "stat-2";
+  else if (value <= 0.6) return "stat-3";
+  else if (value <= 0.8) return "stat-4";
+  else return "stat-5";
 }
