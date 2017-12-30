@@ -25,28 +25,24 @@ admin.initializeApp({
   databaseURL: "https://codemarathon-2-dev.firebaseio.com"
 });
 
+const db = admin.database();
+
 app.get('/', function(request, response) {
-  const db = admin.database();
   const usersPromise = db.ref("users").once("value");
   const lastUpdatePromise = db.ref("lastUpdate").once("value");
+  const statisticsPromise = db.ref("statistics").once("value");
 
-  Promise.all([usersPromise, lastUpdatePromise]).then(results => {
+  Promise.all([usersPromise, lastUpdatePromise, statisticsPromise]).then(results => {
     const students = results[0].val();
     const lastUpdate = results[1].val();
+    const statistics = results[2].val();
 
   	var div1Students = [];
   	var div2Students = [];
     var div3Students = [];
   	for(var key in students) {
-      var value = students[key];
-      var student = {};
-      student.fullname = value.fullname;
-      student.acmpId = value.acmpId;
-      student.dateTime = value.dateTime;
-      student.startRating = value.startRating;
-      student.currentRating = value.currentRating;
-      student.bonusRating = value.bonusRating;
-      student.contestRating = value.contestRating;
+      let value = students[key];
+      let student = parseStudent(key, value);
 
       if (value.division == 'Div1') {
       	div1Students.push(student);
@@ -54,6 +50,29 @@ app.get('/', function(request, response) {
       	div2Students.push(student);
       } else {
         div3Students.push(student);
+      }
+
+      let studentStatistics = statistics.studentStatistics[key];
+      if (studentStatistics !== undefined) {
+        student.diff1_20 = {};
+        student.diff1_20.stat = getStat(studentStatistics.diff1_20 / 71.0);
+        student.diff1_20.tooltip = studentStatistics.diff1_20 + "/" + 71;
+
+        student.diff21_40 = {};
+        student.diff21_40.stat = getStat(studentStatistics.diff21_40 / 284.0);
+        student.diff21_40.tooltip = studentStatistics.diff21_40 + "/" + 284;
+
+        student.diff41_60 = {};
+        student.diff41_60.stat = getStat(studentStatistics.diff41_60 / 252.0);
+        student.diff41_60.tooltip = studentStatistics.diff41_60 + "/" + 252;
+
+        student.diff61_80 = {};
+        student.diff61_80.stat = getStat(studentStatistics.diff61_80 / 85.0);
+        student.diff61_80.tooltip = studentStatistics.diff61_80 + "/" + 85;
+
+        student.diff81_100 = {};
+        student.diff81_100.stat = getStat(studentStatistics.diff81_100 / 8.0);
+        student.diff81_100.tooltip = studentStatistics.diff81_100 + "/" + 8;
       }
     }
 
@@ -76,6 +95,64 @@ app.get('/prizes', function(request, response) {
   response.render('pages/prizes');
 });
 
+app.get('/participants/:id', function(request, response){
+  var studentId = request.params.id;
+
+  db.ref("users").child(studentId).once("value", function(dataSnapshot) {
+    response.render('pages/student', {student: parseStudent(studentId, dataSnapshot.val())});
+  });
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+function parseStudent(key, value) {
+  var solvedTasks = [];
+  for (var k in value.solvedTasks) {
+    var task = {};
+    task.value = value.solvedTasks[k];
+    solvedTasks.push(task);
+  }
+
+  var notSolvedTasks = [];
+  for (var k in value.notSolvedTasks) {
+    var task = {};
+    task.value = value.notSolvedTasks[k];
+    notSolvedTasks.push(task);
+  }
+       
+  var bonuses = []; 
+  for (var k in value.bonuses) {
+    var l = value.bonuses[k];
+    var bonus = {};
+     
+    bonus.value = l.value;
+    bonus.description = l.description;
+    bonuses.push(bonus);
+  }
+
+  var student = {};
+  student.id = key;
+  student.fullname = value.fullname;
+  student.acmpId = value.acmpId;
+  student.dateTime = value.dateTime;
+  student.startRating = value.startRating;
+  student.currentRating = value.currentRating;
+  student.bonusRating = value.bonusRating;
+  student.division = value.division;
+  student.contestRating = value.contestRating;
+  student.solvedTasks = solvedTasks;
+  student.notSolvedTasks = notSolvedTasks;
+  student.bonuses = bonuses;
+
+  return student;
+}
+
+function getStat(value) {
+  if (value <= 0.2) return "stat-1";
+  else if (value <= 0.4) return "stat-2";
+  else if (value <= 0.6) return "stat-3";
+  else if (value <= 0.8) return "stat-4";
+  else return "stat-5";
+}
