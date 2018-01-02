@@ -3,6 +3,9 @@
   color: white;
   padding-bottom: 80px; 
 }
+.problem {
+  max-width: 145px;
+}
 
 .jumbotron .btn-primary {
   background: #845ac7;
