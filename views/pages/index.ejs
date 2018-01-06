@@ -3,11 +3,8 @@
 <head>
   <% include ../partials/header.ejs %>
 </head>
-
 <body>
-
   <% include ../partials/nav.ejs %>
-
 <div class="container">
   <div class="alert alert-info text-center" role="alert">
     <h2>Таблица результатов</h2>
@@ -33,7 +30,7 @@
         <% div1Students.forEach(function(student, index) { %>
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
-                        <td><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
+                        <td class="problem"><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
                         <td><a target="_blank" href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td>
                         <td>
                           <div class="tooltip <%= student.diff1_20.stat %>">
@@ -80,7 +77,7 @@
         <% div2Students.forEach(function(student, index) { %>
                      <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
-                        <td><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
+                        <td  class="problem"><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
                         <td><a target="_blank" href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
                         <td>
                           <div class="tooltip <%= student.diff1_20.stat %>">
@@ -127,7 +124,7 @@
         <% div3Students.forEach(function(student, index) { %>
                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
                         <th scope="row"><%= index+1 %></th>
-                        <td><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
+                        <td class="problem"><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
                         <td><a target="_blank" href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
                         <td>
                           <div class="tooltip <%= student.diff1_20.stat %>">
