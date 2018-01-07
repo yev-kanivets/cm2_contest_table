@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var app = express();
 app.set('port', (process.env.PORT || 5000));
@@ -88,6 +89,10 @@ app.get('/', function(request, response) {
 
 app.get('/sponsors', function(request, response) {
   response.render('pages/sponsors');
+});
+
+app.get('/developers', function(request, response) {
+  response.render('pages/developers');
 });
 
 app.get('/prizes', function(request, response) {
