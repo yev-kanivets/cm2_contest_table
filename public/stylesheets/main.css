@@ -1,12 +1,16 @@
 .jumbotron {
   background: #2196f3;
   color: white;
-  padding-bottom: 80px; 
+padding-bottom:29px;
 }
 .problem {
   max-width: 145px;
 }
-
+#demo{
+color:white;
+font-weight:bold;
+font-size:20px;
+}
 .jumbotron .btn-primary {
   background: #845ac7;
   border-color: #845ac7; 
@@ -32,7 +36,7 @@
 }
   
 .jumbotron .lang-logo {
-  display: block;
+  display:block;
   overflow: hidden;
   width: 120px;
   height: 150px;
