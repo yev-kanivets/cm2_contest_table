@@ -41,8 +41,8 @@ app.get('/', function(request, response) {
   	var div2Students = [];
     var div3Students = [];
   	for(var key in students) {
-      let value = students[key];
-      let student = parseStudent(key, value);
+      const value = students[key];
+      const student = parseStudent(key, value);
 
       if (value.division == 'Div1') {
       	div1Students.push(student);
@@ -52,7 +52,7 @@ app.get('/', function(request, response) {
         div3Students.push(student);
       }
 
-      let studentStatistics = statistics.studentStatistics[key];
+      const studentStatistics = statistics.studentStatistics[key];
       if (studentStatistics !== undefined) {
         student.diff1_20 = {};
         student.diff1_20.stat = getStat(studentStatistics.diff1_20 / 71.0);
@@ -102,8 +102,39 @@ app.get('/prizes', function(request, response) {
 app.get('/participants/:id', function(request, response){
   var studentId = request.params.id;
 
-  db.ref("users").child(studentId).once("value", function(dataSnapshot) {
-    response.render('pages/student', {student: parseStudent(studentId, dataSnapshot.val())});
+  const userPromise = db.ref("users").child(studentId).once("value");
+  const tasksPromise = db.ref("tasks").once("value");
+
+  Promise.all([userPromise, tasksPromise]).then(results => {
+    const user = results[0].val();
+    const tasks = results[1].val();
+
+    const student = parseStudent(studentId, user);
+    const solvedTasks = {};
+    const notSolvedTasks = {};
+
+    student.solvedTasks.forEach(function(item, i, arr) {
+      var task = tasks[item.value];
+      task.id = item.value;
+      if (solvedTasks[task.topic] === undefined) {
+        solvedTasks[task.topic] = [];
+      }
+      solvedTasks[task.topic].push(task);
+    });
+
+    student.notSolvedTasks.forEach(function(item, i, arr) {
+      var task = tasks[item.value];
+      task.id = item.value;
+      if (notSolvedTasks[task.topic] === undefined) {
+        notSolvedTasks[task.topic] = [];
+      }
+      notSolvedTasks[task.topic].push(task);
+    });
+
+    student.solvedTasks = solvedTasks;
+    student.notSolvedTasks = notSolvedTasks;
+
+    response.render('pages/student', {student: student});
   });
 });
 

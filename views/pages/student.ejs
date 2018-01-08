@@ -39,12 +39,16 @@
             </div>
             <div class="col-md-8">
               <h3>Решенные задачи</h3>
-              <% student.solvedTasks.forEach(function(task, index) { %>
-                <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.value %>"><%= task.value %></a>
+              <% Object.keys(student.solvedTasks).forEach(function(key) { %>
+                <% student.solvedTasks[key].forEach(function(task, index) { %>
+                  <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.id %></a>
+                <% }); %>
               <% }); %>
               <h3>Нерешенные задачи</h3>
-              <% student.notSolvedTasks.forEach(function(task, index) { %>
-                <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.value %>"><%= task.value %></a>
+              <% Object.keys(student.notSolvedTasks).forEach(function(key) { %>
+                <% student.notSolvedTasks[key].forEach(function(task, index) { %>
+                  <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.id %></a>
+                <% }); %>
               <% }); %>
             </div>
     </div>
