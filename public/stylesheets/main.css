@@ -36,11 +36,13 @@ font-size:20px;
 }
   
 .jumbotron .lang-logo {
-  display:block;
+  display: block;
+  border-radius: 50%;
   overflow: hidden;
-  width: 120px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   margin: auto;
+  border: 2px solid white; 
 }
     
 .jumbotron .lang-logo img {
