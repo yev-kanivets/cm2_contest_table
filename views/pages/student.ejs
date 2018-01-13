@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
+  <script type="text/javascript" src="/CollapsibleLists.js"></script>
+  <script type="text/javascript">
+    window.onload = function(){
+      CollapsibleLists.apply();
+    }
+  </script>
   <% include ../partials/header.ejs %>
 </head>
 
@@ -37,20 +45,41 @@
                   </tbody>
                 </table> %>
             </div>
-            <div class="col-md-8">
-              <h3>Решенные задачи</h3>
-              <% Object.keys(student.solvedTasks).forEach(function(key) { %>
-                <% student.solvedTasks[key].forEach(function(task, index) { %>
-                  <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.id %></a>
-                <% }); %>
-              <% }); %>
-              <h3>Нерешенные задачи</h3>
-              <% Object.keys(student.notSolvedTasks).forEach(function(key) { %>
-                <% student.notSolvedTasks[key].forEach(function(task, index) { %>
-                  <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.id %></a>
-                <% }); %>
-              <% }); %>
-            </div>
+            <div id="Student1" class="col-md-4">
+              <h3 id="SolvPr">Решенные задачи</h3>       
+<ul id="newList" class="collapsibleList">
+ <% Object.keys(student.solvedTasks).forEach(function(key) { %>   
+ <li>
+ <%=key %>
+    <ul>
+      <% student.solvedTasks[key].forEach(function(task, topic) { %>
+      <li> 
+               <p>[<%= task.id %>]<a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.title %></a>(<%= task.difficulty %>%)</p>
+      </li>
+      <% }); %>
+      </ul>
+ </li>
+<% }); %>
+ </ul>
+</div>
+<div id="Student2" class="col-md-4">
+<h3 id="notSolvPr">Нерешенные задачи</h3>
+  <ul id="newList" class="collapsibleList">
+ <% Object.keys(student.notSolvedTasks).forEach(function(key) { %>   
+ <li>
+ <%=key %>
+    <ul>
+      <% student.notSolvedTasks[key].forEach(function(task, topic) { %>
+      <li> 
+               <p>[<%= task.id %>]<a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.title %></a>(<%= task.difficulty %>%)</p>
+      </li>
+      <% }); %>
+      </ul>
+ </li>
+<% }); %>
+ </ul>
+           
+</div>
     </div>
     <div class="row">
       <div class="alert alert-primary" role="alert">
@@ -58,4 +87,4 @@
     </div>
   </div>
 </body>
-</html>
+</html>++

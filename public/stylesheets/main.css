@@ -6,6 +6,34 @@ padding-bottom:29px;
 .problem {
   max-width: 145px;
 }
+#SolvPr{
+margin-left:30px;
+}
+#notSolvPr{
+margin-left:27px;
+}
+.collapsibleList li{
+  list-style-image : url('button.png');
+  cursor: auto;
+}
+
+li.collapsibleListOpen{
+  list-style-image : url('button-open.png');
+  cursor: pointer;
+}
+
+li.collapsibleListClosed{
+  list-style-image: url('button-closed.png');
+  cursor: pointer;
+}
+
+#Student1{
+float:left;
+}
+
+#Student2{
+float:right;
+}
 #demo{
 color:white;
 font-weight:bold;
