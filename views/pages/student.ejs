@@ -47,41 +47,40 @@
             </div>
             <div id="Student1" class="col-md-4">
               <h3 id="SolvPr">Решенные задачи</h3>       
-<ul id="newList" class="collapsibleList">
- <% Object.keys(student.solvedTasks).forEach(function(key) { %>   
- <li>
- <%=key %>
-    <ul>
-      <% student.solvedTasks[key].forEach(function(task, topic) { %>
-      <li> 
-               <p>[<%= task.id %>]<a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.title %></a>(<%= task.difficulty %>%)</p>
-      </li>
-      <% }); %>
-      </ul>
- </li>
-<% }); %>
- </ul>
-</div>
-<div id="Student2" class="col-md-4">
-<h3 id="notSolvPr">Нерешенные задачи</h3>
-  <ul id="newList" class="collapsibleList">
- <% Object.keys(student.notSolvedTasks).forEach(function(key) { %>   
- <li>
- <%=key %>
-    <ul>
-      <% student.notSolvedTasks[key].forEach(function(task, topic) { %>
-      <li> 
-               <p>[<%= task.id %>]<a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.title %></a>(<%= task.difficulty %>%)</p>
-      </li>
-      <% }); %>
-      </ul>
- </li>
-<% }); %>
- </ul>
-           
-</div>
-    </div>
-    <div class="row">
+              <ul id="newList" class="collapsibleList">
+              <% Object.keys(student.solvedTasks).forEach(function(key) { %>  
+                <li> 
+                  <%=key %>
+                  <ul>
+                    <% student.solvedTasks[key].forEach(function(task, topic) { %>
+                      <li> 
+                          <p>[<%= task.id %>] <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.title %></a> (<%= task.difficulty %>%)</p>
+                      </li>
+                    <% }); %>
+                  </ul>
+                </li>
+              <% }); %>
+              </ul>
+            </div>
+            <div id="Student2" class="col-md-4">
+              <h3 id="notSolvPr">Нерешенные задачи</h3>
+              <ul id="newList" class="collapsibleList">
+                <% Object.keys(student.notSolvedTasks).forEach(function(key) { %>   
+                <li>
+                  <%=key %>
+                  <ul>
+                    <% student.notSolvedTasks[key].forEach(function(task, topic) { %>
+                      <li> 
+                        <p>[<%= task.id %>] <a href="http://acmp.ru/index.asp?main=task&id_task=<%= task.id %>"><%= task.title %></a> (<%= task.difficulty %>%)</p>
+                      </li>
+                    <% }); %>
+                  </ul>
+                </li>
+                <% }); %>
+              </ul>
+           </div>
+        </div>
+      <div class="row">
       <div class="alert alert-primary" role="alert">
       </div>
     </div>
