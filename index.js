@@ -98,6 +98,9 @@ app.get('/developers', function(request, response) {
 app.get('/prizes', function(request, response) {
   response.render('pages/prizes');
 });
+app.get('/conditions', function(request, response) {
+  response.render('pages/conditions');
+});
 
 app.get('/participants/:id', function(request, response){
   var studentId = request.params.id;
