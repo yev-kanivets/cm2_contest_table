@@ -28,6 +28,22 @@ admin.initializeApp({
 const db = admin.database();
 
 app.get('/', function(request, response) {
+  response.render('pages/index');
+});
+
+app.get('/sponsors', function(request, response) {
+  response.render('pages/sponsors');
+});
+
+app.get('/developers', function(request, response) {
+  response.render('pages/developers');
+});
+
+app.get('/prizes', function(request, response) {
+  response.render('pages/prizes');
+});
+
+app.get('/participants', function(request, response) {
   const usersPromise = db.ref("users").once("value");
   const lastUpdatePromise = db.ref("lastUpdate").once("value");
   const statisticsPromise = db.ref("statistics").once("value");
@@ -37,17 +53,17 @@ app.get('/', function(request, response) {
     const lastUpdate = results[1].val();
     const statistics = results[2].val();
 
-  	var div1Students = [];
-  	var div2Students = [];
+    var div1Students = [];
+    var div2Students = [];
     var div3Students = [];
-  	for(var key in students) {
+    for(var key in students) {
       const value = students[key];
       const student = parseStudent(key, value);
 
       if (value.division == 'Div1') {
-      	div1Students.push(student);
+        div1Students.push(student);
       } else if (value.division == 'Div2') {
-      	div2Students.push(student);
+        div2Students.push(student);
       } else {
         div3Students.push(student);
       }
@@ -82,22 +98,11 @@ app.get('/', function(request, response) {
     div1Students.sort(compare);
     div2Students.sort(compare);
     div3Students.sort(compare);
-    response.render('pages/index', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students, 
+    response.render('pages/participants', {div1Students: div1Students, div2Students: div2Students, div3Students: div3Students, 
       lastUpdate: lastUpdate});
   });
 });
 
-app.get('/sponsors', function(request, response) {
-  response.render('pages/sponsors');
-});
-
-app.get('/developers', function(request, response) {
-  response.render('pages/developers');
-});
-
-app.get('/prizes', function(request, response) {
-  response.render('pages/prizes');
-});
 app.get('/conditions', function(request, response) {
   response.render('pages/conditions');
 });

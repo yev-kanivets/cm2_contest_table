@@ -1,162 +1,627 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <% include ../partials/header.ejs %>
-</head>
-<body>
-  <% include ../partials/nav.ejs %>
-<div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    <h2>Таблица результатов</h2>
-    <p>Обновление происходит с задержкой в 10-15 минут.</p>
-  </div>
-  <hr>
-  <div class="row">
-      <table class="table">
-        <caption><h3>Div1</h3></caption>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>ФИО</th>
-          <th>ACMP ID</th>
-          <th>Статистика</th>
-          <th>Стартовый рейтинг</th>
-          <th>Текущий рейтинг</th>
-          <th>Бонусы</th>
-          <th>Итоговый рейтинг</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% div1Students.forEach(function(student, index) { %>
-                    <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
-                        <th scope="row"><%= index+1 %></th>
-                        <td class="problem"><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
-                        <td><a target="_blank" href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td>
-                        <td>
-                          <div class="tooltip <%= student.diff1_20.stat %>">
-                            <span class="tooltiptext"><%= student.diff1_20.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff21_40.stat %>">
-                            <span class="tooltiptext"><%= student.diff21_40.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff41_60.stat %>">
-                            <span class="tooltiptext"><%= student.diff41_60.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff61_80.stat %>">
-                            <span class="tooltiptext"><%= student.diff61_80.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff81_100.stat %>">
-                            <span class="tooltiptext"><%= student.diff81_100.tooltip %></span>
-                          </div>
-                        </td>
-                        <td><%= student.startRating %></td>
-                        <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=<%= student.acmpId %>"><%= student.currentRating %></a></td> 
-                        <td><%= student.bonusRating %></td>
-                        <td><%= student.contestRating %></td>
-                    </tr> 
-                <% }); %>
-      </tbody>
-    </table>
-  </div> <!-- row -->
-  <div class="row">
-      <table class="table">
-        <caption><h3>Div2</h3></caption>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>ФИО</th>
-          <th>ACMP ID</th>
-          <th>Статистика</th>
-          <th>Стартовый рейтинг</th>
-          <th>Текущий рейтинг</th>
-          <th>Бонусы</th>
-          <th>Итоговый рейтинг</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% div2Students.forEach(function(student, index) { %>
-                     <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
-                        <th scope="row"><%= index+1 %></th>
-                        <td  class="problem"><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
-                        <td><a target="_blank" href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
-                        <td>
-                          <div class="tooltip <%= student.diff1_20.stat %>">
-                            <span class="tooltiptext"><%= student.diff1_20.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff21_40.stat %>">
-                            <span class="tooltiptext"><%= student.diff21_40.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff41_60.stat %>">
-                            <span class="tooltiptext"><%= student.diff41_60.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff61_80.stat %>">
-                            <span class="tooltiptext"><%= student.diff61_80.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff81_100.stat %>">
-                            <span class="tooltiptext"><%= student.diff81_100.tooltip %></span>
-                          </div>
-                        </td>
-                        <td><%= student.startRating %></td>
-                        <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=<%= student.acmpId %>"><%= student.currentRating %></a></td> 
-                        <td><%= student.bonusRating %></td>
-                        <td><%= student.contestRating %></td>
-                    </tr> 
-                <% }); %>
-      </tbody>
-    </table>
-  </div> <!-- row -->
-  <div class="row">
-      <table class="table">
-        <caption><h3>Div3</h3></caption>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>ФИО</th>
-          <th>ACMP ID</th>
-          <th>Статистика</th>
-          <th>Стартовый рейтинг</th>
-          <th>Текущий рейтинг</th>
-          <th>Бонусы</th>
-          <th>Итоговый рейтинг</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% div3Students.forEach(function(student, index) { %>
-                    <tr<% if(index < 6){ %> class="bg-success" <% } %>> 
-                        <th scope="row"><%= index+1 %></th>
-                        <td class="problem"><a href="/participants/<%= student.id %>"><%= student.fullname %></a></td> 
-                        <td><a target="_blank" href="https://acmp.ru/?main=user&id=<%= student.acmpId %>"><%= student.acmpId %></a></td> 
-                        <td>
-                          <div class="tooltip <%= student.diff1_20.stat %>">
-                            <span class="tooltiptext"><%= student.diff1_20.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff21_40.stat %>">
-                            <span class="tooltiptext"><%= student.diff21_40.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff41_60.stat %>">
-                            <span class="tooltiptext"><%= student.diff41_60.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff61_80.stat %>">
-                            <span class="tooltiptext"><%= student.diff61_80.tooltip %></span>
-                          </div>
-                          <div class="tooltip <%= student.diff81_100.stat %>">
-                            <span class="tooltiptext"><%= student.diff81_100.tooltip %></span>
-                          </div>
-                        </td>
-                        <td><%= student.startRating %></td>
-                        <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=<%= student.acmpId %>"><%= student.currentRating %></a></td> 
-                        <td><%= student.bonusRating %></td>
-                        <td><%= student.contestRating %></td>
-                    </tr> 
-                <% }); %>
-      </tbody>
-    </table>
-  </div> <!-- row -->
-   <div class="alert alert-info text-center" role="alert">
-    <p>Последнее обновление: <%= lastUpdate %></p>
-  </div>
-</div>
-
-
-</body>
+   <head>
+      <% include ../partials/header.ejs %>
+   </head>
+   <body>
+      <% include ../partials/nav.ejs %>
+      <div class="container">
+         <div class="alert alert-info text-center" role="alert">
+            <h2>Окончательные результаты</h2>
+         </div>
+         <hr>
+         <div class="row">
+            <table class="table">
+               <caption>
+                  <h3>Div1</h3>
+               </caption>
+               <thead>
+                  <tr>
+                     <th>Место</th>
+                     <th>ФИО</th>
+                     <th>ACMP ID</th>
+                     <th>Статистика</th>
+                     <th>Стартовый рейтинг</th>
+                     <th>Текущий рейтинг</th>
+                     <th>Бонусы</th>
+                     <th>Итоговый рейтинг</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <th scope="row">1</th>
+                     <td class="problem"><a href="/participants/-KyaOqzSOVFC8NVRFp44">Евтушенко Богдан</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=192946">192946</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-4">
+                           <span class="tooltiptext">192/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">28/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>259</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=192946">8068</a></td>
+                     <td>450</td>
+                     <td>8259</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">2</th>
+                     <td class="problem"><a href="/participants/-KxwQe2D3qSRCcNR_tlG">Yuri Kovalenko</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=149005">149005</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">265/284</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">91/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">6/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>6289</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=149005">13791</a></td>
+                     <td>500</td>
+                     <td>8002</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">2</th>
+                     <td class="problem"><a href="/participants/-KyUuGRSnRIujNM6IJmk">Andrey Kreydun</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=185982">185982</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-3">
+                           <span class="tooltiptext">116/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">21/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>803</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=185982">5229</a></td>
+                     <td>375</td>
+                     <td>4801</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td class="problem"><a href="/participants/-KxwQeMwB1skMzCwtNAV">Daniel Timoshevsky</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=171493">171493</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-3">
+                           <span class="tooltiptext">159/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">24/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>2585</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=171493">6662</a></td>
+                     <td>500</td>
+                     <td>4577</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td class="problem"><a href="/participants/-KyMXvMgN35d_GGxBpS2">Talantcev Mikhail</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=176837">176837</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">74/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">23/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">2/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>1286</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=176837">4240</a></td>
+                     <td>500</td>
+                     <td>3454</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td class="problem"><a href="/participants/-KxwVAkD5lHwZZWa5KD4">Казаков Глеб</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=171365">171365</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">91/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">5/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>1988</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=171365">3729</a></td>
+                     <td>250</td>
+                     <td>1991</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <!-- row -->
+         <div class="row">
+            <table class="table">
+               <caption>
+                  <h3>Div2</h3>
+               </caption>
+               <thead>
+                  <tr>
+                     <th>Место</th>
+                     <th>ФИО</th>
+                     <th>ACMP ID</th>
+                     <th>Статистика</th>
+                     <th>Стартовый рейтинг</th>
+                     <th>Текущий рейтинг</th>
+                     <th>Бонусы</th>
+                     <th>Итоговый рейтинг</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <th scope="row">1</th>
+                     <td  class="problem"><a href="/participants/-KyUX48hUWzGaiWtBe5F">Патер Марк</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=200389">200389</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">97/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">11/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>14</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=200389">4157</a></td>
+                     <td>125</td>
+                     <td>4268</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">2</th>
+                     <td  class="problem"><a href="/participants/-KyUVkiVglDtfuFkam97">Alisa Balakirskaya</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=189361">189361</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">95/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">13/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>189</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=189361">4183</a></td>
+                     <td>225</td>
+                     <td>4219</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">2</th>
+                     <td  class="problem"><a href="/participants/-KyUVl6W19BSFpu9VtRP">Сидлак Эдуард</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=198168">198168</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">66/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">102/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">9/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>151</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=198168">4054</a></td>
+                     <td>250</td>
+                     <td>4153</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td  class="problem"><a href="/participants/-KzxEeqFDRJlh8vL-mhf">Коваленко Иван</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=208484">208484</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">67/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">71/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">3/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>0</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=208484">2884</a></td>
+                     <td>75</td>
+                     <td>2959</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td  class="problem"><a href="/participants/-KzionBcVGEsGZv7y30W">Демцюра Ира</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=149007">149007</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">73/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">12/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>1002</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=149007">3545</a></td>
+                     <td>400</td>
+                     <td>2943</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td  class="problem"><a href="/participants/-KxvkxgY3BY-n0Zcd-_u">Костяница Костя</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=195175">195175</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">65/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">56/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">6/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>508</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=195175">2732</a></td>
+                     <td>300</td>
+                     <td>2524</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">Почти 3</th>
+                     <td  class="problem"><a href="/participants/-KyouUX6QWZlnfmgZ4sM">Лаптев Артем</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=197273">197273</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-2">
+                           <span class="tooltiptext">103/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">14/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>176</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=197273">4456</a></td>
+                     <td>-1975</td>
+                     <td>2355</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">Почти 3</th>
+                     <td  class="problem"><a href="/participants/-KyVLqdCHi8Bka8ONdXE">Куцын Андрей</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=192507">192507</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">70/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">35/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">6/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>58</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=192507">2230</a></td>
+                     <td>50</td>
+                     <td>2222</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">Почти 3</th>
+                     <td  class="problem"><a href="/participants/-Kz9bYfAqK5aUV-KRPKc">Мария Дидык</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=207196">207196</a></td>
+                     <td>
+                        <div class="tooltip stat-3">
+                           <span class="tooltiptext">32/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">38/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">8/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>2</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=207196">1885</a></td>
+                     <td>75</td>
+                     <td>1958</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <!-- row -->
+         <div class="row">
+            <table class="table">
+               <caption>
+                  <h3>Div3</h3>
+               </caption>
+               <thead>
+                  <tr>
+                     <th>#</th>
+                     <th>ФИО</th>
+                     <th>ACMP ID</th>
+                     <th>Статистика</th>
+                     <th>Стартовый рейтинг</th>
+                     <th>Текущий рейтинг</th>
+                     <th>Бонусы</th>
+                     <th>Итоговый рейтинг</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <th scope="row">1</th>
+                     <td class="problem"><a href="/participants/-KyGAv867r_Q5MWzweSJ">Деревянко Олег</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=197569">197569</a></td>
+                     <td>
+                        <div class="tooltip stat-5">
+                           <span class="tooltiptext">68/71</span>
+                        </div>
+                        <div class="tooltip stat-3">
+                           <span class="tooltiptext">132/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">17/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">1/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>27</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=197569">5427</a></td>
+                     <td>350</td>
+                     <td>5750</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">2</th>
+                     <td class="problem"><a href="/participants/-KyVK_m6F22csEVepF_T">Полтенко Максим</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=198035">198035</a></td>
+                     <td>
+                        <div class="tooltip stat-4">
+                           <span class="tooltiptext">49/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">16/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">4/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>60</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=198035">1203</a></td>
+                     <td>0</td>
+                     <td>1143</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">2</th>
+                     <td class="problem"><a href="/participants/-L-oxKEodHAk0RXyw-UH">Чещевой Антон</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=199453">199453</a></td>
+                     <td>
+                        <div class="tooltip stat-4">
+                           <span class="tooltiptext">52/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">18/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">5/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>272</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=199453">1384</a></td>
+                     <td>25</td>
+                     <td>1137</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td  class="problem"><a href="/participants/-KyVK_pMi5jaL0cX3LYN">Podshivalova Olha</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=202998">202998</a></td>
+                     <td>
+                        <div class="tooltip stat-4">
+                           <span class="tooltiptext">53/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">12/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>10</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=202998">941</a></td>
+                     <td>200</td>
+                     <td>1131</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td class="problem"><a href="/participants/-KzrQKvboSOLrxmEKtd1">Veronika Glagoleva</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=208310">208310</a></td>
+                     <td>
+                        <div class="tooltip stat-3">
+                           <span class="tooltiptext">29/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">21/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>0</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=208310">880</a></td>
+                     <td>50</td>
+                     <td>930</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">3</th>
+                     <td class="problem"><a href="/participants/-KyovWp88hPNkNzW0iMy">Бубнов Антон</a></td>
+                     <td><a target="_blank" href="https://acmp.ru/?main=user&id=198849">198849</a></td>
+                     <td>
+                        <div class="tooltip stat-3">
+                           <span class="tooltiptext">37/71</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">8/284</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">4/252</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/85</span>
+                        </div>
+                        <div class="tooltip stat-1">
+                           <span class="tooltiptext">0/8</span>
+                        </div>
+                     </td>
+                     <td>81</td>
+                     <td><a target="_blank" href="https://acmp.ru/index.asp?main=status&id_mem=198849">822</a></td>
+                     <td>50</td>
+                     <td>791</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <!-- row -->
+      </div>
+   </body>
 </html>
