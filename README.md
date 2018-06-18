@@ -9,7 +9,7 @@ This application supports the [Getting Started with Node on Heroku](https://devc
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git@github.com:evgenii-kanivets/cm2_contest_table.git
+$ git clone git@github.com:evgenii-kanivets/cm2_contest_table.git
 $ cd cm2_contest_table
 $ npm install
 $ npm start
